@@ -270,17 +270,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = () => {
   const logos = [
-    require('./assets/hacker_9052116.png'),
-    require('./assets/hacker_9052116.png'),
-    require('./assets/hacker_9052116.png'),
-    require('./assets/hacker_9052116.png'),
+    require('../../assets/hacker_9052116.png'),
+    require('../../assets/hacker_9052116.png'),
+    require('../../assets/hacker_9052116.png'),
+    require('../../assets/hacker_9052116.png'),
   ];
 
   const products = [
-    {id: 1, image: require('./assets/hacker_9052116.png')},
-    {id: 2, image: require('./assets/hacker_9052116.png')},
-    {id: 3, image: require('./assets/hacker_9052116.png')},
-    {id: 4, image: require('./assets/hacker_9052116.png')},
+    {id: 1, image: require('../../assets/hacker_9052116.png')},
+    {id: 2, image: require('../../assets/hacker_9052116.png')},
+    {id: 3, image: require('../../assets/hacker_9052116.png')},
+    {id: 4, image: require('../../assets/hacker_9052116.png')},
   ];
 
   return (
@@ -291,14 +291,19 @@ const HomeScreen = () => {
           <Text style={styles.welcomeText}>Welcome</Text>
           <Text style={styles.locationText}>Bilzen, Tanjungbalai</Text>
         </View>
-        <View style={styles.headerIcons}>
-          <Icon
-            name="person-circle"
-            size={28}
-            color="#000"
-            style={styles.icon}
-          />
-          <Icon name="cart-outline" size={28} color="#000" />
+        <View style={styles.headerIconsWrap}>
+          <View style={styles.headerIcon}>
+            <Image
+              source={require('../../assets/notify.png')}
+              style={styles.icon}
+            />
+          </View>
+          <View style={styles.headerIcon}>
+            <Image
+              source={require('../../assets/profile.png')}
+              style={styles.icon}
+            />
+          </View>
         </View>
       </View>
 
@@ -311,9 +316,9 @@ const HomeScreen = () => {
           />
           <TextInput placeholder="Search Products" style={styles.searchInput} />
         </View>
-        <View>
+        <View style={styles.filterButtonContainer}>
           <TouchableOpacity style={styles.filterButton}>
-            <Icon name="options" size={20} color="#fff" />
+            <Image source={require('../../assets/filter.png')} />
           </TouchableOpacity>
         </View>
       </View>
@@ -347,17 +352,26 @@ const HomeScreen = () => {
 
       {/* Bottom Navigation Bar */}
       <View style={styles.bottomNavBar}>
-        <TouchableOpacity>
-          <Image source={require('../../assets/Home.png')} style={styles.icon} />
+        <TouchableOpacity style={styles.iconWrap}>
+          <Image
+            source={require('../../assets/Home.png')}
+            style={styles.icon}
+          />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="heart-outline" size={28} color="#000" />
+        <TouchableOpacity style={styles.iconWrap}>
+          <Image source={require('../../assets/fav.png')} style={styles.icon} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="grid-outline" size={28} color="#000" />
+        <TouchableOpacity style={styles.iconWrap}>
+          <Image
+            source={require('../../assets/category.png')}
+            style={styles.icon}
+          />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="person-outline" size={28} color="#000" />
+        <TouchableOpacity style={styles.iconWrap}>
+          <Image
+            source={require('../../assets/Frame.png')}
+            style={styles.icon}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -365,19 +379,30 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  iconWrap: {
+    width: 65,
+    height: 65,
+    backgroundColor: '#FF6F61',
+    height: 50,
+    borderRadius: 50,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   searchBarContainer: {
     width: 362,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     marginVertical: 10,
   },
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
+    paddingTop: 20,
   },
   header: {
     flexDirection: 'row',
@@ -393,10 +418,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
   },
-  headerIcons: {
+  headerIconsWrap: {
+   
+    width: 92,
+    height: 40,
     flexDirection: 'row',
+    marginRight: 10,
+    gap: 6.82,
   },
   icon: {
+    width: 15, // Specify the width of the image
+    height: 15, // Specify the height of the image
+    resizeMode: 'cover',
+  },
+  headerIcon: { flex: 1,
+    justifyContent: 'center', // Centers vertically
+    alignItems: 'center',
+    padding: 10.91,
+    borderWidth: 1.27,
+    borderColor: '#3D405BBF',
+    width: 40,
+    height: 40,
+    borderRadius: 22.12,
     marginRight: 10,
   },
   searchBar: {
@@ -407,7 +450,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     marginVertical: 10,
-    backgroundColor: "#81B29A1A",
+    backgroundColor: '#81B29A1A',
     borderRadius: 30,
     padding: 10,
   },
@@ -422,6 +465,12 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
   },
+  filterButtonContainer: {
+    // position: 'absolute',
+    // right: 20,
+    // top: 20,
+    // zIndex: 1,
+  },
   filterButton: {
     backgroundColor: '#FF6F61',
     padding: 10,
@@ -431,10 +480,12 @@ const styles = StyleSheet.create({
     padding: 17.22,
     gap: 10.76,
     borderRadius: 34.92,
-    opacity: 0,
+    opacity: 1,
   },
   logoCarousel: {
-    marginVertical: 10,
+    width: 362,
+    height: 60,
+    // marginVertical: 10,
     paddingHorizontal: 10,
   },
   logo: {
@@ -444,12 +495,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   megaSaleBanner: {
+    width: 362,
+    height: 151,
     marginHorizontal: 20,
     backgroundColor: '#FFD1C1',
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 20,
   },
   megaSaleText: {
     fontSize: 18,
@@ -476,21 +529,21 @@ const styles = StyleSheet.create({
     // backgroundColor: '#fff',
     // borderTopWidth: 1,
     // borderTopColor: '#ddd',
-    width:300,
+    width: 300,
     position: 'absolute', // Makes it float over the screen
-  bottom: 20, // Distance from the bottom of the screen
-  left: 20, // Distance from the left side
-  right: 20, // Distance from the right side
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  paddingVertical: 10,
-  backgroundColor:"#81B29A",
-  borderRadius: 30, // Rounded corners
-  elevation: 5, // For Android shadow effect
-  shadowColor: '#000', // For iOS shadow effect
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.2,
-  shadowRadius: 5,
+    bottom: 20, // Distance from the bottom of the screen
+    left: 20, // Distance from the left side
+    right: 20, // Distance from the right side
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    backgroundColor: '#81B29A',
+    borderRadius: 70.62, // Rounded corners
+    elevation: 5, // For Android shadow effect
+    shadowColor: '#000', // For iOS shadow effect
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
   },
 });
 
