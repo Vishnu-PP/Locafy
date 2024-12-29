@@ -1,52 +1,50 @@
 import {useNavigation} from '@react-navigation/native';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-const BottomNav = ({currentRoute = 'Home'}) => {
+const BottomNav = ({currentRoute = 'Login'}) => {
   const navigation = useNavigation();
-
-  //   const getCurrentRoute = () => {
-  //     const state = navigation.getState();
-  //     return state && state.routes && state.routes[state.index]?.name;
-  //   };
-
-  //   const currentRoute = getCurrentRoute();
   let homeIcon = {...styles.iconWrap, ...styles.homeIconWrap};
   let homeIcon2 = {...styles.navIcon, ...styles.homeIcon};
-    let navPages = ["Home","Category"];
-  // console.log(currentRoute)
+  let navPages = ['Home', 'Category'];
+  console.log(currentRoute)
   return (
-    navPages.includes(currentRoute) && <View style={styles.container}>
-      <View style={styles.bottomNavBar}>
-        <TouchableOpacity
-          style={currentRoute === 'Home' ? homeIcon : styles.iconWrap}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          <Image source={require('../assets/Home.png')} style={homeIcon2} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={currentRoute === 'Category' ? homeIcon : styles.iconWrap}
-          onPress={() => {
-            navigation.navigate('Category');
-          }}>
-          <Image
-            source={require('../assets/category.png')}
-            style={styles.navIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={currentRoute === 'Favourite' ? homeIcon : styles.iconWrap}>
-          <Image source={require('../assets/fav.png')} style={styles.navIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={currentRoute === 'Discounts' ? homeIcon : styles.iconWrap}>
-          <Image
-            source={require('../assets/Frame.png')}
-            style={styles.navIcon}
-          />
-        </TouchableOpacity>
+    navPages.includes(currentRoute) && (
+      <View style={styles.container}>
+        <View style={styles.bottomNavBar}>
+          <TouchableOpacity
+            style={currentRoute === 'Home' ? homeIcon : styles.iconWrap}
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
+            <Image source={require('../assets/Home.png')} style={homeIcon2} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={currentRoute === 'Category' ? homeIcon : styles.iconWrap}
+            onPress={() => {
+              navigation.navigate('Category');
+            }}>
+            <Image
+              source={require('../assets/category.png')}
+              style={styles.navIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={currentRoute === 'Favourite' ? homeIcon : styles.iconWrap}>
+            <Image
+              source={require('../assets/fav.png')}
+              style={styles.navIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={currentRoute === 'Discounts' ? homeIcon : styles.iconWrap}>
+            <Image
+              source={require('../assets/Frame.png')}
+              style={styles.navIcon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    )
   );
 };
 

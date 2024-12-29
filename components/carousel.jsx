@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Image,
@@ -9,19 +9,17 @@ import {
   PanResponder,
 } from 'react-native';
 
-const ImageCarousel = ({images}) => {
+const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
-  const {width} = Dimensions.get('window');
+  const { width } = Dimensions.get('window');
   const pan = useRef(new Animated.Value(0)).current;
 
-  // Sample images array if none provided
+  // Default local images
   const defaultImages = [
-    // require('../assets/Banner.png'),
-    'https://picsum.photos/400/200?random=1',
-    'https://picsum.photos/400/200?random=2',
-    'https://picsum.photos/400/200?random=3',
-    ,
+    require('../assets/Banner.png'),  // Make sure this image exists in your assets
+    require('../assets/Banner.png'), // Make sure this image exists in your assets
+    require('../assets/Banner.png'), // Make sure this image exists in your assets
   ];
 
   const imageList = images || defaultImages;
@@ -40,26 +38,21 @@ const ImageCarousel = ({images}) => {
               : Math.min(currentIndex + 1, imageList.length - 1);
 
           setCurrentIndex(newIndex);
-          Animated.spring(pan, {
-            toValue: 0,
-            useNativeDriver: true,
-          }).start();
-        } else {
-          Animated.spring(pan, {
-            toValue: 0,
-            useNativeDriver: true,
-          }).start();
         }
+        Animated.spring(pan, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
       },
-    }),
+    })
   ).current;
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex(prevIndex =>
-        prevIndex === imageList.length - 1 ? 0 : prevIndex + 1,
+        prevIndex === imageList.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(timer);
   }, [imageList.length]);
@@ -67,7 +60,7 @@ const ImageCarousel = ({images}) => {
   useEffect(() => {
     Animated.timing(scrollX, {
       toValue: currentIndex * width,
-      duration: 300,
+      duration:800,
       useNativeDriver: true,
     }).start();
   }, [currentIndex, width]);
@@ -90,7 +83,7 @@ const ImageCarousel = ({images}) => {
         inputRange: [0, width * (imageList.length - 1)],
         outputRange: [0, -width * (imageList.length - 1)],
       }),
-      pan,
+      pan
     );
   };
 
@@ -100,15 +93,15 @@ const ImageCarousel = ({images}) => {
         style={[
           styles.scrollContainer,
           {
-            transform: [{translateX: getTranslateX()}],
+            transform: [{ translateX: getTranslateX() }],
           },
         ]}
         {...panResponder.panHandlers}>
         {imageList.map((image, index) => (
           <Image
             key={index}
-            source={'https://picsum.photos/400/200?random=1'}
-            style={[styles.image, {width}]}
+            source={image} // Now directly using the required image
+            style={[styles.image, { width: width - 40 }]} // Adjust width based on screen size
             resizeMode="cover"
           />
         ))}
@@ -116,7 +109,7 @@ const ImageCarousel = ({images}) => {
 
       <View style={styles.controls}>
         <TouchableOpacity
-          style={[styles.button, {opacity: currentIndex === 0 ? 0.5 : 1}]}
+          style={[styles.button, { opacity: currentIndex === 0 ? 0.5 : 1 }]}
           onPress={handlePrevPress}
           disabled={currentIndex === 0}>
           <View style={[styles.arrow, styles.leftArrow]} />
@@ -125,7 +118,7 @@ const ImageCarousel = ({images}) => {
         <TouchableOpacity
           style={[
             styles.button,
-            {opacity: currentIndex === imageList.length - 1 ? 0.5 : 1},
+            { opacity: currentIndex === imageList.length - 1 ? 0.5 : 1 },
           ]}
           onPress={handleNextPress}
           disabled={currentIndex === imageList.length - 1}>
@@ -134,12 +127,12 @@ const ImageCarousel = ({images}) => {
       </View>
 
       <View style={styles.pagination}>
-        {imageList.map((_, index) => (
+        {imageList?.map((_, index) => (
           <View
             key={index}
             style={[
               styles.dot,
-              {backgroundColor: currentIndex === index ? '#000' : '#ccc'},
+              { backgroundColor: currentIndex === index ? '#000' : '#ccc' },
             ]}
           />
         ))}
@@ -150,18 +143,22 @@ const ImageCarousel = ({images}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%', // Match the parent container's width
-    height: '100%', // Match the parent container's height
+    width: 362,
+    height: 151,
     overflow: 'hidden',
-    justifyContent: 'center', // Center carousel content vertically
-    alignItems: 'center', // Center carousel content horizontally
+    justifyContent: 'center',
+    // alignItems: 'center',
+    borderRadius: 10,
   },
-  scrollContainer: {
-    flexDirection: 'row',
+  scrollContainer: { 
+    gap: 45,
+    flexDirection: 'row', // Ensure horizontal layout
   },
   image: {
-    height: '100%', // Scale the image to the container's height
-    width: '100%', // Scale the image to the container's width
+    width: 362, // Full screen width
+    height: 151,
+    resizeMode: 'cover',
+    borderRadius: 10,
   },
   controls: {
     flexDirection: 'row',
@@ -170,7 +167,7 @@ const styles = StyleSheet.create({
     top: '50%',
     width: '100%',
     paddingHorizontal: 10,
-    transform: [{translateY: -15}],
+    transform: [{ translateY: -15 }],
   },
   button: {
     width: 30,
@@ -188,10 +185,10 @@ const styles = StyleSheet.create({
     borderColor: '#000',
   },
   leftArrow: {
-    transform: [{rotate: '-135deg'}],
+    transform: [{ rotate: '-135deg' }],
   },
   rightArrow: {
-    transform: [{rotate: '45deg'}],
+    transform: [{ rotate: '45deg' }],
   },
   pagination: {
     flexDirection: 'row',

@@ -53,7 +53,7 @@ const handleLocationSelect = (location) => {
         />
         <Text style={styles.locationText}>{selectedLocation}</Text>
         <Image
-//           source={require('../../assets/arrow-down.png')} // Make sure to have an arrow icon
+          source={require('../assets/arrowDown.png')} // Make sure to have an arrow icon
           style={styles.arrowIcon}
         />
       </TouchableOpacity>
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   arrowIcon: {
+    top: 5,
     width: 12,
     height: 12,
   },

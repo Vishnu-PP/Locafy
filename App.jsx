@@ -7,9 +7,8 @@ import LoginScreen from './src/Screens/LoginScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 import CategoryScreen from './src/Screens/CategoryScreen';
 import BottomNav from './components/nav';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import {PermissionsAndroid, Platform} from 'react-native';
 
 async function requestLocationPermission() {
@@ -36,42 +35,6 @@ async function requestLocationPermission() {
   }
 }
 
-// const App = () => {
-//   const Stack = createStackNavigator();
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator
-//         initialRouteName="Login"
-//         screenOptions={{
-//           header: props => <BottomNav />,
-//         }}>
-//         <Stack.Screen
-//           name="Home"
-//           component={HomeScreen}
-//           options={{title: 'Dashboard'}}
-//         />
-//         <Stack.Screen
-//           name="Login"
-//           component={LoginScreen}
-//           options={{title: 'Login'}}
-//         />
-//         <Stack.Screen
-//           name="Profile"
-//           component={ProfileScreen}
-//           options={{title: 'Profile'}}
-//         />
-//         <Stack.Screen
-//           name="Category"
-//           component={CategoryScreen}
-//           options={{title: 'Category'}}
-//         />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
-
-// export default App;
-
 const Stack = createStackNavigator();
 
 const AppWrapper = () => {
@@ -87,15 +50,24 @@ const AppWrapper = () => {
 
     return unsubscribe; 
   }, [navigation]);
-  console.log(currentRoute,"cc")
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, paddingBottom: 100}}>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <View style={styles.mainContainer}>
+        <Stack.Navigator 
+          screenOptions={{
+            headerShown: false,
+            cardStyle: styles.cardStyle
+          }} 
+          initialRouteName='Login'
+        >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
+      </View>
+      <View style={styles.bottomNavContainer}>
         <BottomNav currentRoute={currentRoute}/>
       </View>
     </SafeAreaView>
@@ -105,10 +77,40 @@ const AppWrapper = () => {
 export default function App() {
   useEffect(() => {
     requestLocationPermission();
-  },[])
+  }, []);
+
   return (
     <NavigationContainer>
       <AppWrapper />
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FAF9F6',
+  },
+  mainContainer: {
+    flex: 1,
+    position: 'relative',
+  },
+  cardStyle: {
+    backgroundColor: 'transparent',
+  },
+  bottomNavContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    elevation: 8, // for Android shadow
+    shadowColor: '#000', // for iOS shadow
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  }
+});
