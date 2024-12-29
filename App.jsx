@@ -10,6 +10,32 @@ import BottomNav from './components/nav';
 import {View} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import {PermissionsAndroid, Platform} from 'react-native';
+
+async function requestLocationPermission() {
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "Location Permission",
+          message: "This app needs access to your location.",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK",
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the location");
+      } else {
+        console.log("Location permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+}
+
 // const App = () => {
 //   const Stack = createStackNavigator();
 //   return (
@@ -65,7 +91,7 @@ const AppWrapper = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1, paddingBottom: 100}}>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -77,6 +103,9 @@ const AppWrapper = () => {
 };
 
 export default function App() {
+  useEffect(() => {
+    requestLocationPermission();
+  },[])
   return (
     <NavigationContainer>
       <AppWrapper />
