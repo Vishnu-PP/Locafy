@@ -1,42 +1,41 @@
-import {useNavigation} from '@react-navigation/native';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-const BottomNav = ({currentRoute = 'Login'}) => {
-  const navigation = useNavigation();
+const BottomNav = ({ currentRoute = 'Home', onRouteChange }) => {
   let homeIcon = {...styles.iconWrap, ...styles.homeIconWrap};
   let homeIcon2 = {...styles.navIcon, ...styles.homeIcon};
-  let navPages = ['Home', 'Category'];
-  console.log(currentRoute)
+  let navPages = ['Home', 'Category', 'Shops',"Favourite"];
+
   return (
     navPages.includes(currentRoute) && (
       <View style={styles.container}>
         <View style={styles.bottomNavBar}>
           <TouchableOpacity
             style={currentRoute === 'Home' ? homeIcon : styles.iconWrap}
-            onPress={() => {
-              navigation.navigate('Home');
-            }}>
+            onPress={() => onRouteChange('Home')}>
             <Image source={require('../assets/Home.png')} style={homeIcon2} />
           </TouchableOpacity>
+
           <TouchableOpacity
             style={currentRoute === 'Category' ? homeIcon : styles.iconWrap}
-            onPress={() => {
-              navigation.navigate('Category');
-            }}>
+            onPress={() => onRouteChange('Category')}>
             <Image
               source={require('../assets/category.png')}
               style={styles.navIcon}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
-            style={currentRoute === 'Favourite' ? homeIcon : styles.iconWrap}>
+            style={currentRoute === 'Favourite' ? homeIcon : styles.iconWrap}
+            onPress={() => onRouteChange('Favourite')}>
             <Image
               source={require('../assets/fav.png')}
               style={styles.navIcon}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
-            style={currentRoute === 'Discounts' ? homeIcon : styles.iconWrap}>
+            style={currentRoute === 'Shops' ? homeIcon : styles.iconWrap}
+            onPress={() => onRouteChange('Shops')}>
             <Image
               source={require('../assets/Frame.png')}
               style={styles.navIcon}

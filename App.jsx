@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './src/Screens/HomeScreen';
+import HomeScreen from './src/Screens/Dashboard';
 import LoginScreen from './src/Screens/LoginScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 import CategoryScreen from './src/Screens/CategoryScreen';
@@ -87,14 +87,13 @@ const AppWrapper = () => {
           initialRouteName='Login'
         >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
       </View>
-      <View style={styles.bottomNavContainer}>
+      {/* <View style={styles.bottomNavContainer}>
         <BottomNav currentRoute={currentRoute}/>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

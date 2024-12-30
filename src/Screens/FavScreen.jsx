@@ -16,7 +16,7 @@ const CategoryItem = ({title, image, bgColor}) => (
   </TouchableOpacity>
 );
 
-const CategoryScreen = () => {
+const FavScreen = () => {
   const navigation = useNavigation();
 
   const categories = [
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryScreen;
+export default FavScreen;
