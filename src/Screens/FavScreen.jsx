@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const CategoryItem = ({title, image, bgColor}) => (
   <TouchableOpacity style={[styles.categoryCard, {backgroundColor: bgColor}]}>
-    <Image source={image} style={styles.categoryImage} />
+    {/* <Image source={image} style={styles.categoryImage} /> */}
     {/* <Text style={styles.categoryTitle}>{title}</Text> */}
   </TouchableOpacity>
 );
@@ -45,15 +45,13 @@ const FavScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Categories</Text>
+      <Text style={styles.header}>Favourites</Text>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.categoryGrid}>
           {categories.map((category, index) => (
             <CategoryItem
               key={index}
-              title={category.title}
-              image={category.image}
               bgColor={category.bgColor}
             />
           ))}
@@ -66,6 +64,7 @@ const FavScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height:600
     // backgroundColor: '#FFFFFF',
   },
   header: {
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
   },
   categoryCard: {
     width: '48%',
+    height: 100,
     aspectRatio: 1,
     borderRadius: 12,
     // padding: 16,

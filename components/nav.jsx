@@ -37,7 +37,7 @@ const BottomNav = ({ currentRoute = 'Home', onRouteChange }) => {
             style={currentRoute === 'Shops' ? homeIcon : styles.iconWrap}
             onPress={() => onRouteChange('Shops')}>
             <Image
-              source={require('../assets/Frame.png')}
+              source={require('../assets/storess.png')}
               style={styles.navIcon}
             />
           </TouchableOpacity>

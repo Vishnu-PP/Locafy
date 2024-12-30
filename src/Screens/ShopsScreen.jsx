@@ -10,7 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 
 const CategoryItem = ({title, image, bgColor}) => (
-  <TouchableOpacity style={[styles.categoryCard, {backgroundColor: bgColor}]}>
+  <TouchableOpacity style={[styles.categoryCard]}>
     <Image source={image} style={styles.categoryImage} />
     {/* <Text style={styles.categoryTitle}>{title}</Text> */}
   </TouchableOpacity>
@@ -19,42 +19,65 @@ const CategoryItem = ({title, image, bgColor}) => (
 const ShopsScreen = () => {
   const navigation = useNavigation();
 
-  const categories = [
+  let shops = [
     {
-      title: 'Electronics',
-      image: require('../../assets/electronic.png'),
-      bgColor: '#FFE8E8',
+      id: 1,
+      address: '2nd Floor, Hilite Mall, Palazhi, Calicut',
+      name: 'Tata Chroma',
+      image: require('../../assets/shop1.png'),
+      distance: '0.5 km',
+      location: 'Palazhi, Calicut',
+      rating: '4.5',
     },
     {
-      title: 'Food',
-      image: require('../../assets/food.png'),
-      bgColor: '#FFE8D6',
+      id: 2,
+      address: 'Palazhi, Calicut',
+      name: 'Tech Store',
+      image: require('../../assets/shop2.png'),
+      distance: '1.2 km',
+      location: 'Palazhi, Calicut',
+      rating: '4.8',
     },
     {
-      title: 'Laundry & Cleaning',
-      image: require('../../assets/clean.png'),
-      bgColor: '#E8F8FF',
+      id: 3,
+      address: 'Bismi Nadakkavu, Calicut',
+      name: 'Bismi',
+      image: require('../../assets/shop3.png'),
+      distance: '2.1 km',
+      location: 'Nadakkavu, Calicut',
+      rating: '4.2',
     },
     {
-      title: 'Clothes',
-      image: require('../../assets/cloth.png'),
-      bgColor: '#E8FFE8',
+      id: 4,
+      address: 'Palazhi, Calicut',
+      name: 'Tech Store',
+      image: require('../../assets/shop4.png'),
+      distance: '1.2 km',
+      location: 'Palazhi, Calicut',
+      rating: '4.8',
     },
-    // Add more categories as needed
+    {
+      id: 5,
+      address: 'Bismi Nadakkavu, Calicut',
+      name: 'Bismi',
+      image: require('../../assets/shop5.png'),
+      distance: '2.1 km',
+      location: 'Nadakkavu, Calicut',
+      rating: '4.2',
+    },
   ];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Categories</Text>
+      <Text style={styles.header}>Shops</Text>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.categoryGrid}>
-          {categories.map((category, index) => (
+          {shops.map((shop, index) => (
             <CategoryItem
               key={index}
-              title={category.title}
-              image={category.image}
-              bgColor={category.bgColor}
+              title={shop.title}
+              image={shop.image}
             />
           ))}
         </View>
@@ -66,6 +89,7 @@ const ShopsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height:600
     // backgroundColor: '#FFFFFF',
   },
   header: {
@@ -87,15 +111,16 @@ const styles = StyleSheet.create({
     width: '48%',
     aspectRatio: 1,
     borderRadius: 12,
+    backgroundColor: '#FFFFFF',
     // padding: 16,
     marginBottom: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
   categoryImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    width: 73,
+    height: 73,
+    resizeMode: 'contain',
   },
   categoryTitle: {
     fontSize: 16,

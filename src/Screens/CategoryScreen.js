@@ -66,6 +66,7 @@ const CategoryScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height:600
     // backgroundColor: '#FFFFFF',
   },
   header: {
