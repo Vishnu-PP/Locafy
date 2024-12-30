@@ -76,6 +76,7 @@ dependencies {
     // AndroidX dependencies
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.facebook.soloader:soloader:0.10.5'
+    // implementation 'org.devio.rn:react-native-splash-screen:3.3.0' // Use a valid version
 
     // Add other dependencies here
 }

@@ -9,92 +9,48 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import ImageCarousel from '../../components/carousel';
+
 import DummyLocationSelector from '../../components/dummyLocation';
 import {useNavigation} from '@react-navigation/native';
+import Home from './home';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const [showStoreResults, setShowStoreResults] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('New York, USA');
+  const [selectedLocation, setSelectedLocation] = useState('Palazhi, Calicut');
 
-  const offers = [
-    {
-      id: 1,
-      shopImg: require('../../assets/shop1.png'),
-      name: 'Shop One',
-      image: require('../../assets/offer1.png'),
-      rating: '4.5',
-      category: 'Electronics',
-    },
-    {
-      id: 2,
-      shopImg: require('../../assets/shop2.png'),
-      name: 'Shop Two',
-      image: require('../../assets/offer2.png'),
-      rating: '4.8',
-      category: 'Fashion',
-    },
-    {
-      id: 3,
-      shopImg: require('../../assets/shop3.png'),
-      name: 'Shop Three',
-      image: require('../../assets/offer3.png'),
-      rating: '4.2',
-      category: 'Groceries',
-    },
-    {
-      id: 4,
-      shopImg: require('../../assets/shop4.png'),
-      name: 'Shop Four',
-      image: require('../../assets/offer4.png'),
-      rating: '4.6',
-      category: 'Electronics',
-    },
-    {
-      id: 5,
-      shopImg: require('../../assets/shop5.png'),
-      name: 'Shop Five',
-      image: require('../../assets/offer2.png'),
-      rating: '4.6',
-      category: 'Electronics',
-    },
-  ];
-  const products = [
-    {id: 1, image: require('../../assets/shop1.png')},
-    {id: 2, image: require('../../assets/shop2.png')},
-    {id: 3, image: require('../../assets/shop3.png')},
-    {id: 4, image: require('../../assets/shop4.png')},
-    {id: 5, image: require('../../assets/shop5.png')},
-  ];
+  
 
   // Dummy store data with locations and products
   const nearbyStores = [
     {
       id: 1,
-      name: 'Electronics Hub',
+      address: '2nd Floor, Hilite Mall, Palazhi, Calicut',
+      name: 'Tata Chroma',
       image: require('../../assets/shop1.png'),
       distance: '0.5 km',
-      location: 'New York, USA',
+      location: 'Palazhi, Calicut',
       rating: '4.5',
       products: ['Wireless Headphones', 'Smart Watch', 'Laptop'],
     },
     {
       id: 2,
+      address: 'Palazhi, Calicut',
       name: 'Tech Store',
       image: require('../../assets/shop2.png'),
       distance: '1.2 km',
-      location: 'New York, USA',
+      location: 'Palazhi, Calicut',
       rating: '4.8',
       products: ['Smart Watch', 'Phone', 'Tablet'],
     },
     {
       id: 3,
-      name: 'Gadget World',
+      address: 'Bismi Nadakkavu, Calicut',
+      name: 'Bismi',
       image: require('../../assets/shop3.png'),
       distance: '2.1 km',
-      location: 'New York, USA',
+      location: 'Nadakkavu, Calicut',
       rating: '4.2',
       products: ['Wireless Headphones', 'Camera', 'Speaker'],
     },
@@ -119,13 +75,6 @@ const HomeScreen = () => {
   };
 
   // Keep your existing product rendering logic
-  const renderShopItem = ({item}) => (
-    <TouchableOpacity style={styles.shopItem}>
-      <Image source={item.image} style={styles.shopImage} />
-    </TouchableOpacity>
-  );
-  let banner1 = require('../../assets/Banner.png');
-  let banner2 = require('../../assets/Banner2.png');
   // let banner3 = require('../../assets/Banner3.png');
   // New store result item component
   const renderStoreResult = ({item}) => (
@@ -133,11 +82,12 @@ const HomeScreen = () => {
       <Image source={item.image} style={styles.storeResultImage} />
       <View style={styles.storeInfo}>
         <Text style={styles.storeName}>{item.name}</Text>
+        <Text style={styles.storeAddress}>{item.address}</Text>
         <Text style={styles.storeDistance}>{item.distance}</Text>
       </View>
       <View style={styles.storeRating}>
         <Image
-          source={require('../../assets/notify.png')}
+          source={require('../../assets/star.png')}
           style={styles.ratingIcon}
         />
         <Text style={styles.ratingText}>{item.rating}</Text>
@@ -188,6 +138,7 @@ const HomeScreen = () => {
               value={searchQuery}
               onChangeText={handleSearch}
             />
+          {searchQuery && <Text onPress={() => handleSearch('')} style={styles.closeButtonText}>✕</Text>}
           </View>
           <View style={styles.filterButtonContainer}>
             <TouchableOpacity style={styles.filterButton}>
@@ -216,51 +167,52 @@ const HomeScreen = () => {
 
         {/* Keep your existing sections when not showing store results */}
         {!showStoreResults && (
-          <>
-            <View style={styles.shopListContainer}>
-              <FlatList
-                data={products}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={item => item.id.toString()}
-                renderItem={renderShopItem}
-                style={styles.shopList}
-                nestedScrollEnabled={true}
-              />
-            </View>
-            {/* <View style={styles.megaSaleBanner}>
-              <Image source={require('../../assets/Banner.png')} />
-            </View> */}
-            <View style={styles.megaSaleBanner}>
-              <ImageCarousel images={[banner1, banner2]} />
-            </View>
+          // <>
+          //   <View style={styles.shopListContainer}>
+          //     <FlatList
+          //       data={products}
+          //       horizontal
+          //       showsHorizontalScrollIndicator={false}
+          //       keyExtractor={item => item.id.toString()}
+          //       renderItem={renderShopItem}
+          //       style={styles.shopList}
+          //       nestedScrollEnabled={true}
+          //     />
+          //   </View>
+          //   {/* <View style={styles.megaSaleBanner}>
+          //     <Image source={require('../../assets/Banner.png')} />
+          //   </View> */}
+          //   <View style={styles.megaSaleBanner}>
+          //     <ImageCarousel images={[banner1, banner2]} />
+          //   </View>
 
-            <View style={styles.productsContainer}>
-              <FlatList
-                data={offers}
-                numColumns={2}
-                scrollEnabled={false}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={styles.productCard}
-                    activeOpacity={0.7}>
-                    {/* Top Image */}
-                    <Image source={item.image} style={styles.productImage} />
+          //   <View style={styles.productsContainer}>
+          //     <FlatList
+          //       data={offers}
+          //       numColumns={2}
+          //       scrollEnabled={false}
+          //       keyExtractor={item => item.id.toString()}
+          //       renderItem={({item}) => (
+          //         <TouchableOpacity
+          //           style={styles.productCard}
+          //           activeOpacity={0.7}>
+          //           {/* Top Image */}
+          //           <Image source={item.image} style={styles.productImage} />
 
-                    {/* Shop details */}
-                    <View style={styles.offerDetails}>
-                      <Image source={item.shopImg} style={styles.shopImage2} />
-                      <View style={styles.shopTextContainer}>
-                        <Text style={styles.offerShop}>{item.name}</Text>
-                        <Text style={styles.offerDesc}>Limited time deal</Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-          </>
+          //           {/* Shop details */}
+          //           <View style={styles.offerDetails}>
+          //             <Image source={item.shopImg} style={styles.shopImage2} />
+          //             <View style={styles.shopTextContainer}>
+          //               <Text style={styles.offerShop}>{item.name}</Text>
+          //               <Text style={styles.offerDesc}>Limited time deal</Text>
+          //             </View>
+          //           </View>
+          //         </TouchableOpacity>
+          //       )}
+          //     />
+          //   </View>
+          // </>
+          <Home/>
         )}
       </ScrollView>
     </View>
@@ -349,6 +301,19 @@ const styles = StyleSheet.create({
   storeName: {
     fontSize: 16,
     fontWeight: '500',
+  },
+  storeAddress: {
+    fontSize: 12,
+    fontWeight: '200',
+  },
+  ratingIcon: {
+    width: 15,
+    height: 15,
+    resizeMode: 'cover',
+  },
+  ratingText: {
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   storeDistance: {
     fontSize: 14,
@@ -457,6 +422,12 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 55,
+  },
+  closeButtonText: {
+    marginRight: 10,
+    fontSize: 14,
+    fontWeight:100,
+    color: '#333',
   },
   filterButton: {
     backgroundColor: '#FF6F61',

@@ -7,6 +7,8 @@ import LoginScreen from './src/Screens/LoginScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 import CategoryScreen from './src/Screens/CategoryScreen';
 import BottomNav from './components/nav';
+import SplashScreen from './components/splashScreen';
+import RNSplashScreen from 'react-native-splash-screen'; // Add this import
 import {View, StyleSheet} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {PermissionsAndroid, Platform} from 'react-native';
@@ -40,6 +42,25 @@ const Stack = createStackNavigator();
 const AppWrapper = () => {
   const navigation = useNavigation();
   const [currentRoute, setCurrentRoute] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Initialize app data, load resources etc.
+    const initApp = async () => {
+      try {
+        // Add any initialization logic here
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Your existing timeout
+        setIsLoading(false);
+        RNSplashScreen.hide(); // Hide the native splash screen
+      } catch (error) {
+        console.error('Error initializing app:', error);
+        setIsLoading(false);
+        RNSplashScreen.hide();
+      }
+    };
+
+    initApp();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('state', (e) => {
@@ -50,6 +71,10 @@ const AppWrapper = () => {
 
     return unsubscribe; 
   }, [navigation]);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -104,8 +129,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: 'white',
-    elevation: 8, // for Android shadow
-    shadowColor: '#000', // for iOS shadow
+    elevation: 8,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: -2,

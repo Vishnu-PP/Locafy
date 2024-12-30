@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -13,34 +13,33 @@ import {
 const DummyLocationSelector = ({onLocationSelect}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('New York, USA');
+  const [selectedLocation, setSelectedLocation] = useState('Palazhi, Calicut');
 
   // Dummy locations data
   const dummyLocations = [
-    { id: '1', name: 'New York, USA' },
-    { id: '2', name: 'Los Angeles, USA' },
-    { id: '3', name: 'Chicago, USA' },
-    { id: '4', name: 'Houston, USA' },
-    { id: '5', name: 'Miami, USA' },
-    { id: '6', name: 'San Francisco, USA' },
-    { id: '7', name: 'Seattle, USA' },
-    { id: '8', name: 'Boston, USA' },
-    { id: '9', name: 'Las Vegas, USA' },
-    { id: '10', name: 'Denver, USA' },
+    {id: '1', name: 'Palazhi, Calicut'},
+    {id: '2', name: 'Nadakkavu, Calicut'},
+    {id: '3', name: 'Westhill, Calicut'},
+    {id: '4', name: 'SM Street, Calicut'},
+    {id: '5', name: 'Kakkanad, Kochi'},
+    {id: '6', name: 'Muvattupuzha, Kochi'},
+    {id: '7', name: 'Mattancheri, Kochi'},
+    {id: '8', name: 'Vadakkencherry, Thrissur'},
+    {id: '9', name: 'Kottarakkara, Kollam'},
+    {id: '10', name: 'Kovalam, Trivandram'},
   ];
 
   // Filter locations based on search query
   const filteredLocations = dummyLocations.filter(location =>
-    location.name.toLowerCase().includes(searchQuery.toLowerCase())
+    location.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-
-// In DummyLocationSelector:
-const handleLocationSelect = (location) => {
-  setSelectedLocation(location.name);
-  setModalVisible(false);
-  onLocationSelect(location.name); // Add this line
-};
+  // In DummyLocationSelector:
+  const handleLocationSelect = location => {
+    setSelectedLocation(location.name);
+    setModalVisible(false);
+    onLocationSelect(location.name); // Add this line
+  };
   return (
     <View>
       {/* Location Display */}
@@ -48,7 +47,7 @@ const handleLocationSelect = (location) => {
         style={styles.locationDisplay}
         onPress={() => setModalVisible(true)}>
         <Image
-//           source={require('../../assets/location.png')} // Make sure to have a location icon
+          //           source={require('../../assets/location.png')} // Make sure to have a location icon
           style={styles.locationIcon}
         />
         <Text style={styles.locationText}>{selectedLocation}</Text>
@@ -79,7 +78,7 @@ const handleLocationSelect = (location) => {
             {/* Search Bar */}
             <View style={styles.searchContainer}>
               <Image
-//                 source={require('../../assets/search.png')} // Make sure to have a search icon
+                //                 source={require('../../assets/search.png')} // Make sure to have a search icon
                 style={styles.searchIcon}
               />
               <TextInput
@@ -99,22 +98,24 @@ const handleLocationSelect = (location) => {
                 setModalVisible(false);
               }}>
               <Image
-//                 source={require('../../assets/current-location.png')} // Make sure to have a current location icon
+                //                 source={require('../../assets/current-location.png')} // Make sure to have a current location icon
                 style={styles.currentLocationIcon}
               />
-              <Text style={styles.currentLocationText}>Use Current Location</Text>
+              <Text style={styles.currentLocationText}>
+                Use Current Location
+              </Text>
             </TouchableOpacity>
 
             {/* Location List */}
             <FlatList
               data={filteredLocations}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <TouchableOpacity
                   style={styles.locationItem}
                   onPress={() => handleLocationSelect(item)}>
                   <Image
-//                     source={require('../../assets/location-pin.png')} // Make sure to have a pin icon
+                    //                     source={require('../../assets/location-pin.png')} // Make sure to have a pin icon
                     style={styles.locationPinIcon}
                   />
                   <Text style={styles.locationItemText}>{item.name}</Text>
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     paddingVertical: 8,
-    left:-25,
+    left: -25,
   },
   locationIcon: {
     width: 20,
